@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ImageEditor } from 'react-native';
+import Home from './screens/Home';
+import Videos from './screens/Videos';
+import Podcasts from './screens/Podcasts';
+import Books from './screens/Books';
+import Login from './screens/Login'
+import Register from './screens/Register';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+const Stack = createNativeStackNavigator();
+
+export default class App extends Component{
+
+// Initialize Firebase
+  render(){
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false, animation: 'none' } } />
+          <Stack.Screen name="Videos" component={Videos} options={{ headerShown: false, animation: 'none' } } />
+          <Stack.Screen name="Podcasts" component={Podcasts} options={{ headerShown: false, animation: 'none' } } />
+          <Stack.Screen name="Books" component={Books} options={{ headerShown: false, animation: 'none' } } />
+          <Stack.Screen name="Register" component={Register} options={{headerShown: false}} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

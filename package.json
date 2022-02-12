@@ -10,12 +10,33 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/slider": "^4.2.0",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
     "expo": "~44.0.0",
+    "expo-av": "^10.2.1",
     "expo-status-bar": "~1.2.0",
+    "fast-xml-parser": "^4.0.1",
+    "firebase": "^9.6.1",
+    "got": "^12.0.1",
+    "http": "^0.0.1-security",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
-    "react-native-web": "0.17.1"
+    "react-native-gesture-handler": "~2.1.0",
+    "react-native-reanimated": "~2.3.1",
+    "react-native-rss-parser": "^1.5.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "~3.10.1",
+    "react-native-track-player": "^1.2.7",
+    "react-native-vector-icons": "^9.0.0",
+    "react-native-web": "0.17.1",
+    "react-native-webview": "^11.16.0",
+    "react-native-youtube-iframe": "^2.2.2",
+    "react-navigation": "^4.4.4",
+    "react-navigation-stack": "^2.10.4",
+    "rss-parser": "^3.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
