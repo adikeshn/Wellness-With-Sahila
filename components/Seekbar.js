@@ -19,6 +19,7 @@ export default class SeekBar extends Component{
             minimumTrackTintColor='tomato'
             thumbTintColor='gray'
             onSlidingComplete={value => {this.props.callBack(value * this.props.durationMillis)}}
+            onValueChange={value => {this.props.callBack2()}}
           />
         );
     }

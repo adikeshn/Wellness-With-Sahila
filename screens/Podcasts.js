@@ -25,7 +25,7 @@ export default class Podcasts extends Component {
         playbackStatus: null,
         durationMillis: null,
         positionMillis: null,
-        seekBarVal: null
+        seekBarVal: null,
       }
   }
 
@@ -128,20 +128,28 @@ export default class Podcasts extends Component {
         });
     }
 
-    getCurrentTime = (timestamp) => {
-      var minutes = Math.floor(timestamp / 60) - (hours * 60);
-      var seconds = timestamp % 60;
-
-      var formatted = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-      console.log(formatted);
-    }
-
     async componentWillUnmount(){
       await this.state.playbackInstance.pauseAsync();
     }
-    
+
+    pause = async () => {
+      const { playbackInstance } = this.state;
+      await playbackInstance.pauseAsync();
+
+      this.setState({
+        isPlaying: false
+      })
+    }
+
     skip = async (time) => {
+      const {playbackInstance } = this.state;
       await this.state.playbackInstance.setStatusAsync({ positionMillis: time })
+      await playbackInstance.playAsync();
+
+      this.setState({
+        isPlaying: true
+      })
+      this.getCurrentTime(this.state.positionMillis)
     }
 
     render(){
@@ -175,6 +183,7 @@ export default class Podcasts extends Component {
                       positionMillis={this.state.positionMillis}
                       sliderValue={this.state.sliderValue}
                       callBack={this.skip}
+                      callBack2={this.pause}
                       />
                       <TouchableOpacity onPress={this.handlePlayPause}>
                         {this.state.isPlaying ? (
@@ -196,11 +205,11 @@ export default class Podcasts extends Component {
                       })
                       this.newTrack();
                     }}><Pod 
-                    description={item.itunes.summary}
                     title={item.title}
                     image={item.itunes.image}
                     date={item.published}
                     audio={item.enclosures[0].url}
+                    duration={item.itunes.duration}
                     /></TouchableOpacity>
                   )}
                 />

@@ -5,6 +5,13 @@ import Slider from '@react-native-community/slider';
 const width_proportion = Dimensions.get('window').width * 0.85
 
 const Pod = (props) => {
+    const getCurrentTime = (millis) => {
+        var minutes = Math.floor(millis / 60);
+        var seconds = ((millis % 60)).toFixed(0);
+        let formatted = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+        return formatted;
+    }
+
     return (
             <View style = {styles.PodView}>
                 <Image source={ {uri: props.image} } style={{
@@ -16,7 +23,7 @@ const Pod = (props) => {
                 }} />
                 <View style={styles.TextView}>
                     <Text style={styles.sub2}>{props.title}</Text>
-                    <Text style={styles.sub}>Wellness With Sahila</Text>
+                    <Text style={styles.sub}>Wellness With Sahila: {getCurrentTime(props.duration)}</Text>
                     <Text style={styles.sub}>{props.date}</Text>
                 </View>
             </View>

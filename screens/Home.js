@@ -28,13 +28,12 @@ export default class Home extends Component {
                 <ScrollView>
                   <Image source = {require('../assets/sdsd.jpg')} style = {{
                       width: width_proportion,
-                      height: 300,
+                      height: 210,
                       borderRadius: 3,
                       resizeMode: 'contain',
-                      marginTop: -30,
                       position: 'relative'
                   }} />
-                  <View>
+                  <View style = {{marginTop: 20}}>
                     <Image source = {require('../assets/VPB_6854.jpg')} style = {{
                       borderRadius: 3,
                       width: width_proportion,
