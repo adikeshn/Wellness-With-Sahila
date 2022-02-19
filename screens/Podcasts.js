@@ -1,5 +1,5 @@
-import { StyleSheet, Dimensions, Text, View, TouchableOpacity, ScrollView, Image, ImageEditor, StatusBar, FlatList } from 'react-native';
-import React, {useState, Component, PureComponent} from "react"
+import { StyleSheet, Dimensions, Text, View, TouchableOpacity, Image, StatusBar, FlatList, ActivityIndicator, ScrollView } from 'react-native';
+import React, {Component} from "react"
 import Pod from '../components/Pod';
 import * as rssParser from 'react-native-rss-parser';
 import SeekBar from '../components/Seekbar';
@@ -225,7 +225,25 @@ export default class Podcasts extends Component {
           )
         }
         else{
-          return null;
+          return (
+            <View style={this.containerStyle()}>
+              <View style = {styles.banner}> 
+                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('Videos')}}><Text style = {styles.button}>Videos</Text></TouchableOpacity>
+                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('Podcasts')}}><Text style={styles.button}>Podcasts</Text></TouchableOpacity>
+                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('Books')}}><Text style={styles.button}>Books</Text></TouchableOpacity>        
+              </View>
+              <View style={{flex: 0.8, padding: 5, justifyContent: 'center', alignItems: 'center'}}>
+                  <ActivityIndicator size="large" color="tomato" />
+              </View>
+              <View style = {styles.bottom}>
+                  <View>
+                    <TouchableOpacity onPress={() => {this.props.navigation.navigate('Home')}}><Text style = {styles.label}>Wellness With Sahila</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => {this.props.navigation.navigate('Login')}}><Text style = {{marginLeft: 10}}>Logout</Text></TouchableOpacity>
+                  </View>
+                  <Image source = {require("../assets/logo.png")} style = {styles.pic}/>
+              </View>
+          </View>
+          );
         }
     }
 }
