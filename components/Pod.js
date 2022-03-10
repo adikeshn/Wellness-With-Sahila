@@ -5,7 +5,7 @@ import Slider from '@react-native-community/slider';
 const width_proportion = Dimensions.get('window').width * 0.85
 
 const Pod = (props) => {
-    const getCurrentTime = (millis) => {
+    let getCurrentTime = (millis) => {
         var minutes = Math.floor(millis / 60);
         var seconds = ((millis % 60)).toFixed(0);
         let formatted = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;

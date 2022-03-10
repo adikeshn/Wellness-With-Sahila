@@ -26,6 +26,7 @@ export default class Podcasts extends Component {
         durationMillis: null,
         positionMillis: null,
         seekBarVal: null,
+        newloaded: false
       }
   }
 
@@ -81,8 +82,8 @@ export default class Podcasts extends Component {
     }
     
     handlePlayPause = async () => {
-      const { isPlaying, playbackInstance } = this.state
-      isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
+      const { isPlaying, playbackInstance, isLoading } = this.state
+      isPlaying && !isLoading ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
   
       this.setState({
         isPlaying: !isPlaying
@@ -93,12 +94,14 @@ export default class Podcasts extends Component {
       let {playbackInstance} = this.state
       this.setState({
         positionMillis: 0,
-        seekBarVal: 0
+        seekBarVal: 0,
       })
+      this.state.newloaded = true
       this.state.isPlaying = false;
 		  if (playbackInstance) {
         await playbackInstance.unloadAsync()
         await this.loadAudio()
+        this.state.newloaded = false
       }
     }
 
@@ -129,7 +132,8 @@ export default class Podcasts extends Component {
     }
 
     async componentWillUnmount(){
-      await this.state.playbackInstance.pauseAsync();
+      if (this.state.playbackInstance)
+       await this.state.playbackInstance.unloadAsync()
     }
 
     pause = async () => {
@@ -153,7 +157,7 @@ export default class Podcasts extends Component {
     }
 
     render(){
-        if (this.state.isLoading == false){
+        if (!this.state.isLoading){
           return (
             <View style={this.containerStyle()}>
               <View style = {styles.banner}> 
@@ -167,7 +171,7 @@ export default class Podcasts extends Component {
                     width: height_proportion * 0.25,
                     height: height_proportion * 0.25
                   }}></Image>
-                  <View style = {{justifyContent : 'flex-start'}}>
+                  <View style = {{justifyContent : 'center'}}>
                     <Text style = {styles.TextView}>{this.state.playing.title}</Text>
                     <Text style = {styles.sub}>Wellness With Sahila</Text>
                     <Text style = {{
@@ -176,24 +180,30 @@ export default class Podcasts extends Component {
                     maxWidth: 220,
                     marginLeft: 16
                     }}>{this.state.playing.published}</Text>
-
-                    <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginLeft: 8, marginTop: -4}}>
-                      <SeekBar
-                      durationMillis={this.state.durationMillis}
-                      positionMillis={this.state.positionMillis}
-                      sliderValue={this.state.sliderValue}
-                      callBack={this.skip}
-                      callBack2={this.pause}
-                      />
-                      <TouchableOpacity onPress={this.handlePlayPause}>
-                        {this.state.isPlaying ? (
-                          <Ionicons name='ios-pause' size={25} style={{marginTop: 10}}color='tomato' />
-                        ) : (
-                          <Ionicons name="play" size={25} style={{marginTop: 10}} color='tomato'/>
-                        )}
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+                    {!this.state.newloaded ? (
+                        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginLeft: 8, marginTop: -4}}>
+                  
+                          <SeekBar
+                          durationMillis={this.state.durationMillis}
+                          positionMillis={this.state.positionMillis}
+                          sliderValue={this.state.sliderValue}
+                          callBack={this.skip}
+                          callBack2={this.pause}
+                          />
+                          <TouchableOpacity onPress={this.handlePlayPause}>
+                            {this.state.isPlaying ? (
+                              <Ionicons name='ios-pause' size={25} style={{marginTop: 10}}color='tomato' />
+                            ) : (
+                              <Ionicons name="play" size={25} style={{marginTop: 10}} color='tomato'/>
+                            )}
+                          </TouchableOpacity>
+                        </View>
+                      ) : (
+                          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginLeft: 8, paddingTop: 10}}>
+                            <ActivityIndicator size="large" color="tomato" />
+                          </View>
+                      )}
+                </View>
               </View>
               <View style={styles.content}>
                 <FlatList
