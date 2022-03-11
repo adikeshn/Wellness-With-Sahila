@@ -12,7 +12,7 @@ export default class SeekBar extends Component{
         }
         return (
             <Slider
-            style={{width: width_proportion*0.45, height: 50}}
+            style={{width: width_proportion*0.42, height: 50}}
             minimumValue={0}
             maximumValue={1}
             value={sliderValue}

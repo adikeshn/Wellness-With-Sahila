@@ -96,6 +96,13 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+    image1: {
+        width: width_proportion,
+        height: 210,
+        borderRadius: 3,
+        resizeMode: 'contain',
+        position: 'relative'
+    },
     other: {
       flexDirection: 'row',
       alignItems: 'center',

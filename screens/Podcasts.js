@@ -133,7 +133,10 @@ export default class Podcasts extends Component {
 
     async componentWillUnmount(){
       if (this.state.playbackInstance)
-       await this.state.playbackInstance.unloadAsync()
+      {
+        await this.state.playbackInstance.pauseAsync()
+        await this.state.playbackInstance.unloadAsync()
+      }
     }
 
     pause = async () => {
@@ -153,7 +156,6 @@ export default class Podcasts extends Component {
       this.setState({
         isPlaying: true
       })
-      this.getCurrentTime(this.state.positionMillis)
     }
 
     render(){
@@ -268,7 +270,7 @@ const styles = StyleSheet.create({
   },
     play: {
       backgroundColor: "#E3E3E3",
-      flex: 0.28,
+      flex: 0.25,
       flexDirection: 'row',
       width: width_proportion
     },
@@ -286,7 +288,7 @@ const styles = StyleSheet.create({
     TextView: {
       marginLeft: 15,
       marginTop: 15,
-      maxWidth: width_proportion * 0.53,
+      maxWidth: width_proportion * 0.51,
       fontSize: fontSize
    },
     label: {

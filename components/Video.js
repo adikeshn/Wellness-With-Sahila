@@ -9,11 +9,9 @@ const Video = (props) => {
             <TouchableOpacity onPress={() => {Linking.openURL(props.text)}}><Image source={props.image} style={{
                 height: 120,
                 width: imageWidthProportion,
-                marginLeft: 15,
                 borderRadius: 10
             }}/></TouchableOpacity>
-            <View style = {styles.TextView}>
-            </View>
+            
         </View>
     )
 }
@@ -24,9 +22,9 @@ const styles = StyleSheet.create({
         height: 160,
         width: width_proportion,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 15,
+        marginBottom: 15,
         borderRadius: 10
     },
     TextView: {
