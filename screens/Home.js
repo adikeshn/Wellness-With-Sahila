@@ -26,31 +26,13 @@ export default class Home extends Component {
             </View>
             <View style={styles.content}>
                 <ScrollView>
-                  <Image source = {require('../assets/sdsd.jpg')} style = {{
-                      width: width_proportion,
-                      height: 210,
-                      borderRadius: 3,
-                      resizeMode: 'contain',
-                      position: 'relative'
-                  }} />
+                  <Image source = {require('../assets/sdsd.jpg')} style = {styles.image1} />
                   <View style = {{marginTop: 20}}>
-                    <Image source = {require('../assets/VPB_6854.jpg')} style = {{
-                      borderRadius: 3,
-                      width: width_proportion,
-                      height: 150
-                    }}>
+                    <Image source = {require('../assets/VPB_6854.jpg')} style = {styles.image2}>
                     </Image>
-                    <View style = {{
-                      backgroundColor: '#E94747',
-                      position: 'absolute',
-                      height: 120,
-                      width: 240,
-                      paddingTop: 20,
-                      marginTop: 15,
-                      borderRadius: 3,
-                      justifyContent: 'center',
-                      alignItems: 'center'
-                    }}><Text style = {styles.mission}>My mission is to help everyone live a disease free life to their fullest potential through my wholesome approach
+                    <View style = {styles.image3}><Text style = {styles.mission}>
+                      My mission is to help everyone live a disease free 
+                    life to their fullest potential through my wholesome approach
                     that teaches how to balance body and mind.</Text>
                     </View>
                   </View>
@@ -59,26 +41,12 @@ export default class Home extends Component {
                       <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/c/WellnessWithSahila/videos')}><Image
                       style={styles.youtube} source={require('../assets/1.jpg')} /></TouchableOpacity>
                       
-                      <Image style = {{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 50,
-                        position: 'absolute',
-                        marginLeft: 7,
-                        marginTop: 13
-                      }}source={require('../assets/youtubeLogo.png')} />
+                      <Image style = {styles.image4}source={require('../assets/youtubeLogo.png')} />
                     </View>
                     <View>
                       <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/WellnessWithSahila')}>
                         <Image style = {styles.youtube} source = {require('../assets/facebook.jpg')} /></TouchableOpacity>
-                      <Image source={require('../assets/FacebookLogo.jpg')} style = {{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 50,
-                        position: 'absolute',
-                        marginLeft: 10,
-                        marginTop: 13
-                        }} />
+                      <Image source={require('../assets/FacebookLogo.jpg')} style = {styles.image5} />
                     </View>
                   </View>
                 </ScrollView>
@@ -96,6 +64,38 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+    image5: {
+      width: 40,
+      height: 40,
+      borderRadius: 50,
+      position: 'absolute',
+      marginLeft: 10,
+      marginTop: 13
+    },
+    image4: {
+      width: 40,
+      height: 40,
+      borderRadius: 50,
+      position: 'absolute',
+      marginLeft: 7,
+      marginTop: 13
+    },
+    image3: {
+      backgroundColor: '#E94747',
+      position: 'absolute',
+      height: 120,
+      width: 240,
+      paddingTop: 20,
+      marginTop: 15,
+      borderRadius: 3,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    image2: {
+        borderRadius: 3,
+        width: width_proportion,
+        height: 150
+    },
     image1: {
         width: width_proportion,
         height: 210,
