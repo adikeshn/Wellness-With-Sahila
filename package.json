@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@miblanchard/react-native-slider": "^2.1.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/slider": "^4.2.0",
     "@react-navigation/native": "^6.0.6",
@@ -24,11 +25,14 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-elements": "^3.4.2",
+    "react-native-elemets": "^0.0.1-security",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-reanimated": "~2.3.1",
     "react-native-rss-parser": "^1.5.1",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-slider": "^0.11.0",
     "react-native-track-player": "^1.2.7",
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
