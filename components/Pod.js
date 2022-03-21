@@ -13,20 +13,20 @@ const Pod = (props) => {
     }
 
     return (
-            <View style = {styles.PodView}>
-                <Image source={ {uri: props.image} } style={{
-                    width: 100,
-                    height: 100,
-                    borderRadius: 5,
-                    marginLeft: 10,
-                    alignSelf: 'center'
-                }} />
-                <View style={styles.TextView}>
-                    <Text style={styles.sub2}>{props.title}</Text>
-                    <Text style={styles.sub}>Wellness With Sahila: {getCurrentTime(props.duration)}</Text>
-                    <Text style={styles.sub}>{props.date}</Text>
-                </View>
+        <View style={styles.PodView}>
+            <Image source={{ uri: props.image }} style={{
+                width: 100,
+                height: 100,
+                borderRadius: 5,
+                marginLeft: 10,
+                alignSelf: 'center'
+            }} />
+            <View style={styles.TextView}>
+                <Text style={styles.sub2}>{props.title}</Text>
+                <Text style={styles.sub}>Wellness With Sahila: {getCurrentTime(props.duration)}</Text>
+                <Text style={styles.sub}>{props.date}</Text>
             </View>
+        </View>
     )
 }
 
@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     TextView: {
-       marginLeft: 15,
-       marginTop: 15,
-       maxWidth: width_proportion
+        marginLeft: 15,
+        marginTop: 15,
+        maxWidth: width_proportion
     },
     sub: {
         marginTop: 5,

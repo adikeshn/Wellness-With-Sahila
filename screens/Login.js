@@ -13,56 +13,56 @@ import {
 import { db } from '../firebase-config';
 import { collection, addDoc } from 'firebase/firestore'
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const checkUser = () => {
     console.log("Logged In!");
   }
 
   return (
     <View style={styles.container}>
-        <View style = {styles.banner}>
+      <View style={styles.banner}>
+      </View>
+      <View style={styles.login}>
+        <Image style={styles.image} source={require("../assets/logo.png")} />
+
+        <StatusBar style="auto" />
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Email."
+            placeholderTextColor="#003f5c"
+            onChangeText={(GetEmail) => setEmail(GetEmail)}
+          />
         </View>
-          <View style={styles.login}>
-              <Image style={styles.image} source={require("../assets/logo.png")} />
 
-              <StatusBar style="auto" />
-              <View style={styles.inputView}>
-                  <TextInput
-                  style={styles.TextInput}
-                  placeholder="Email."
-                  placeholderTextColor="#003f5c"
-                  onChangeText={(GetEmail) => setEmail(GetEmail)}
-                  />
-              </View>
-
-              <View style={styles.inputView}>
-                  <TextInput
-                  style={styles.TextInput}
-                  placeholder="Password"
-                  placeholderTextColor="#003f5c"
-                  secureTextEntry={true}
-                  onChangeText={(Getpassword) => setPassword(Getpassword)}
-                  />
-              </View>
-
-              <TouchableOpacity onPress={() => {
-                navigation.navigate("Register")
-              }}>
-                  <Text style={styles.forgot_button}>Register</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginBtn} onPress={() => {
-                  checkUser();
-                  navigation.navigate("Home");
-              }}>
-                  <Text style={styles.loginText}>LOGIN</Text>
-              </TouchableOpacity>
-          </View>
-        <View style = {styles.banner}>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Password"
+            placeholderTextColor="#003f5c"
+            secureTextEntry={true}
+            onChangeText={(Getpassword) => setPassword(Getpassword)}
+          />
         </View>
+
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("Register")
+        }}>
+          <Text style={styles.forgot_button}>Register</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.loginBtn} onPress={() => {
+          checkUser();
+          navigation.navigate("Home");
+        }}>
+          <Text style={styles.loginText}>LOGIN</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.banner}>
+      </View>
     </View>
   );
 }
