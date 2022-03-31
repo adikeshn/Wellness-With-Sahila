@@ -8,17 +8,33 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  Modal
+  Modal,
+  TurboModuleRegistry
 } from "react-native";
-import { db } from '../firebase-config';
-import { collection, addDoc } from 'firebase/firestore'
 
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase-config";
 export default function Login({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const checkUser = () => {
-    console.log("Logged In!");
+  const [passworderrer, seterror] = useState(false);
+  const [errorText, setErrortext] = useState("");
+
+  const checkUser = async () => {
+
+    await signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      setEmail("");
+      setPassword("");
+      seterror(false);
+      navigation.navigate("Home");
+    })
+    .catch((error) => {
+      seterror(true);
+      setPassword("")
+      setErrortext("Incorrect Credentials");
+    });
+    
   }
 
   return (
@@ -34,6 +50,7 @@ export default function Login({navigation}) {
                   style={styles.TextInput}
                   placeholder="Email."
                   placeholderTextColor="#003f5c"
+                  value={email}
                   onChangeText={(GetEmail) => setEmail(GetEmail)}
                   />
               </View>
@@ -44,9 +61,16 @@ export default function Login({navigation}) {
                   placeholder="Password"
                   placeholderTextColor="#003f5c"
                   secureTextEntry={true}
+                  value={password}
                   onChangeText={(Getpassword) => setPassword(Getpassword)}
                   />
               </View>
+
+              {
+                passworderrer ? (
+                    <Text style = {styles.error}>{errorText}</Text>
+                ) : null
+              }
 
               <TouchableOpacity onPress={() => {
                 navigation.navigate("Register")
@@ -54,9 +78,8 @@ export default function Login({navigation}) {
                   <Text style={styles.forgot_button}>Register</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.loginBtn} onPress={() => {
-                  checkUser();
-                  navigation.navigate("Home");
+              <TouchableOpacity style={styles.loginBtn} onPress={async () => {
+                  checkUser();                  
               }}>
                   <Text style={styles.loginText}>LOGIN</Text>
               </TouchableOpacity>
@@ -114,4 +137,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#E94747",
   },
+
+  error: {
+    color: "red",
+    fontWeight: 'bold',
+    marginBottom: 15,
+    fontSize: 15
+  }
 });

@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   Modal
 } from "react-native";
-import { db } from '../firebase-config';
-import { collection, addDoc } from 'firebase/firestore'
+import {createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase-config";
 
 export default function Register({navigation}) {
   
@@ -32,14 +32,27 @@ export default function Register({navigation}) {
         setErrortext("Feilds Missing");
         return false;
       }
+      else if (password.length < 6){
+        seterror(true)
+        setErrortext("password must be at least 6 characters")
+        return false;
+      }
+
       return true;
   }
-
   const handleRegister = () => {
-    /*addDoc(collection(db, "users"), {username: email, password: password}).catch(function(error) {
-      console.error('There was an error uploading a file to Cloud Storage:', error);
-    });
-    */
+    if (checkValid()){
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        seterror(true);
+        setErrortext("successfully created user");
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        seterror(true);
+        setErrortext(error.message + " " + error.code);
+      });
+    }
     return true;
   }
 
@@ -91,10 +104,7 @@ export default function Register({navigation}) {
                 <Text style={styles.forgot_button}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.loginBtn} onPress={() => {
-                if (checkValid()){
-                    handleRegister();
-                    navigation.navigate("Login");
-                }
+                handleRegister()
             }}>
                 <Text style={styles.loginText}>REGISTER</Text>
             </TouchableOpacity>
@@ -156,6 +166,6 @@ const styles = StyleSheet.create({
       color: "red",
       fontWeight: 'bold',
       marginBottom: 15,
-      fontSize: 18
+      fontSize: 15
   }
 });
