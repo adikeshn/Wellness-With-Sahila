@@ -5,13 +5,13 @@ const width_proportion = Dimensions.get('window').width * 0.85
 const Video = (props) => {
     const imageWidthProportion = Dimensions.get('window').width * 0.75
     return (
-        <View style = {styles.videoView}>
-            <TouchableOpacity onPress={() => {Linking.openURL(props.text)}}><Image source={props.image} style={{
+        <View style={styles.videoView}>
+            <TouchableOpacity onPress={() => { Linking.openURL(props.text) }}><Image source={props.image} style={{
                 height: 120,
                 width: imageWidthProportion,
                 borderRadius: 10
-            }}/></TouchableOpacity>
-            
+            }} /></TouchableOpacity>
+
         </View>
     )
 }
@@ -27,9 +27,6 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 10
     },
-    TextView: {
-       
-    }
 });
 
 export default Video;

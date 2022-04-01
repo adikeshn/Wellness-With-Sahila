@@ -13,14 +13,14 @@ import {
 import {createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 
-export default function Register({navigation}) {
-  
+export default function Register({ navigation }) {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConf, setConf] = useState("");
   const [passworderrer, seterror] = useState(false);
   const [errorText, setErrortext] = useState("");
-  
+
   const checkValid = () => {
       if(password.localeCompare(passwordConf) != 0){
           seterror(true);
@@ -58,46 +58,20 @@ export default function Register({navigation}) {
 
   return (
     <View style={styles.container}>
-        <View style = {styles.banner}>
+      <View style={styles.banner}>
+      </View>
+      <View style={styles.login}>
+        <Image style={styles.image} source={require("../assets/logo.png")} />
+
+        <StatusBar style="auto" />
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Email."
+            placeholderTextColor="#003f5c"
+            onChangeText={(GetEmail) => setEmail(GetEmail)}
+          />
         </View>
-        <View style={styles.login}>
-            <Image style={styles.image} source={require("../assets/logo.png")} />
-
-            <StatusBar style="auto" />
-            <View style={styles.inputView}>
-                <TextInput
-                style={styles.TextInput}
-                placeholder="Email."
-                placeholderTextColor="#003f5c"
-                onChangeText={(GetEmail) => setEmail(GetEmail)}
-                />
-            </View>
-
-            <View style={styles.inputView}>
-                <TextInput
-                style={styles.TextInput}
-                placeholder="Password"
-                placeholderTextColor="#003f5c"
-                secureTextEntry={true}
-                onChangeText={(Getpassword) => setPassword(Getpassword)}
-                />
-            </View>
-            <View style={styles.inputView}>
-                <TextInput
-                style={styles.TextInput}
-                placeholder="Confirm Password"
-                placeholderTextColor="#003f5c"
-                secureTextEntry={true}
-                onChangeText={(Conformation) => setConf(Conformation)}
-                />
-            </View>
-
-            {
-                passworderrer ? (
-                    <Text style = {styles.error}>{errorText}</Text>
-                ) : null
-            }
-
             <TouchableOpacity onPress={() => {
               navigation.navigate("Login");
             }}>
@@ -108,9 +82,47 @@ export default function Register({navigation}) {
             }}>
                 <Text style={styles.loginText}>REGISTER</Text>
             </TouchableOpacity>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Password"
+            placeholderTextColor="#003f5c"
+            secureTextEntry={true}
+            onChangeText={(Getpassword) => setPassword(Getpassword)}
+          />
         </View>
-        <View style = {styles.banner}>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Confirm Password"
+            placeholderTextColor="#003f5c"
+            secureTextEntry={true}
+            onChangeText={(Conformation) => setConf(Conformation)}
+          />
         </View>
+
+        {
+          passworderrer ? (
+            <Text style={styles.error}>{errorText}</Text>
+          ) : null
+        }
+
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("Login");
+        }}>
+          <Text style={styles.forgot_button}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => {
+          if (checkValid()) {
+            handleRegister();
+            navigation.navigate("Login");
+          }
+        }}>
+          <Text style={styles.loginText}>REGISTER</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.banner}>
+      </View>
     </View>
   );
 }
@@ -167,5 +179,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       marginBottom: 15,
       fontSize: 15
+
   }
 });
