@@ -6,10 +6,7 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  Modal,
-  TurboModuleRegistry
 } from "react-native";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -34,13 +31,16 @@ export default function Login({navigation}) {
       setPassword("")
       setErrortext("Incorrect Credentials");
     });
+    
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.banner}>
+      </View>
       <View style={styles.login}>
         <Image style={styles.image} source={require("../assets/logo.png")} />
+
               <StatusBar style="auto" />
               <View style={styles.inputView}>
                   <TextInput
@@ -83,41 +83,6 @@ export default function Login({navigation}) {
           </View>
         <View style = {styles.banner}>
         </View>
-        <StatusBar style="auto" />
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Email."
-            placeholderTextColor="#003f5c"
-            onChangeText={(GetEmail) => setEmail(GetEmail)}
-          />
-        </View>
-
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Password"
-            placeholderTextColor="#003f5c"
-            secureTextEntry={true}
-            onChangeText={(Getpassword) => setPassword(Getpassword)}
-          />
-        </View>
-
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("Register")
-        }}>
-          <Text style={styles.forgot_button}>Register</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.loginBtn} onPress={() => {
-          checkUser();
-          navigation.navigate("Home");
-        }}>
-          <Text style={styles.loginText}>LOGIN</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.banner}>
-      </View>
     </View>
   );
 }
