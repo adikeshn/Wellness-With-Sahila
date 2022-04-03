@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, StatusBar, Dimensions, Linking, SafeAreaView } from 'react-native';
 import React from "react"
 import { Link } from '@react-navigation/native';
+import { auth } from "../firebase-config";
 
 const width_proportion = Dimensions.get('window').width
 export default function Books({ navigation }) {
@@ -29,8 +30,8 @@ export default function Books({ navigation }) {
               <View style={styles.descView}>
                 <View style={styles.descTextView}>
                   <Text>This is one of the first books written on yoga chakras by a
-                    doctor trained in USA. The goal is to
-                    explain the mind body relationships in the causation
+                  doctor trained in USA. The goal is to
+                  explain the mind body relationships in the causation
                     of illnesses starting from Covid to Cancer . </Text>
                 </View>
                 <TouchableOpacity onPress={() => {
@@ -48,7 +49,7 @@ export default function Books({ navigation }) {
       <View style={styles.bottom}>
         <View>
           <TouchableOpacity onPress={() => { navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => { navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => { auth.signOut(); navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
         </View>
         <Image source={require("../assets/logo.png")} style={styles.pic} />
       </View>

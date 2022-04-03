@@ -1,6 +1,9 @@
 import React from 'react';
 import { Linking, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ImageEditor, StatusBar, SafeAreaView } from 'react-native';
 import Video from '../components/Video';
+import { auth } from "../firebase-config";
+
+
 export default function Videos({ navigation }) {
   let containerStyle = function (options) {
     return {
@@ -32,7 +35,7 @@ export default function Videos({ navigation }) {
       <View style={styles.bottom}>
         <View>
           <TouchableOpacity onPress={() => { navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => { navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => { auth.signOut(); navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
         </View>
         <Image source={require("../assets/logo.png")} style={styles.pic} />
       </View>

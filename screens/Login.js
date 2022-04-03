@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,83 +8,103 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { auth } from "../firebase-config";
-export default function Login({navigation}) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passworderrer, seterror] = useState(false);
-  const [errorText, setErrortext] = useState("");
 
-  const checkUser = async () => {
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
 
-    await signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      setEmail("");
-      setPassword("");
-      seterror(false);
-      navigation.navigate("Home");
-    })
-    .catch((error) => {
-      seterror(true);
-      setPassword("")
-      setErrortext("Incorrect Credentials");
-    });
-    
+    this.state = {
+      email: "",
+      password: "",
+      passworderrer: false,
+      errorText: ""
+    }
   }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.banner}>
-      </View>
-      <View style={styles.login}>
-        <Image style={styles.image} source={require("../assets/logo.png")} />
+  checkUser = async () => {
+    await signInWithEmailAndPassword(auth, this.state.email, this.state.password)
+      .catch((error) => {
+        this.setState({ password: "", passworderrer: true })
+        error.code == "auth/network-request-failed" ? this.setState({ errorText: "No Connection" }) :
+          this.setState({
+            errorText: "incorrect credentials"
+          })
+      });
+  }
 
-              <StatusBar style="auto" />
-              <View style={styles.inputView}>
-                  <TextInput
-                  style={styles.TextInput}
-                  placeholder="Email."
-                  placeholderTextColor="#003f5c"
-                  value={email}
-                  onChangeText={(GetEmail) => setEmail(GetEmail)}
-                  />
-              </View>
+  reset = () => {
+    this.setState({
+      password: "",
+      passworderrer: false,
+      errorText: "",
+      email: ""
+    })
+  }
 
-              <View style={styles.inputView}>
-                  <TextInput
-                  style={styles.TextInput}
-                  placeholder="Password"
-                  placeholderTextColor="#003f5c"
-                  secureTextEntry={true}
-                  value={password}
-                  onChangeText={(Getpassword) => setPassword(Getpassword)}
-                  />
-              </View>
+  moniterAuthState = async () => {
+    await onAuthStateChanged(auth, user => {
+      user != null ? this.props.navigation.navigate("Home") : null;
+    })
+  }
 
-              {
-                passworderrer ? (
-                    <Text style = {styles.error}>{errorText}</Text>
-                ) : null
-              }
 
-              <TouchableOpacity onPress={() => {
-                navigation.navigate("Register")
-              }}>
-                  <Text style={styles.forgot_button}>Register</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginBtn} onPress={async () => {
-                  checkUser();                  
-              }}>
-                  <Text style={styles.loginText}>LOGIN</Text>
-              </TouchableOpacity>
-          </View>
-        <View style = {styles.banner}>
+  render() {
+    this.moniterAuthState()
+    return (
+      <View style={styles.container}>
+        <View style={styles.banner}>
         </View>
-    </View>
-  );
+        <View style={styles.login}>
+          <Image style={styles.image} source={require("../assets/logo.png")} />
+
+          <StatusBar style="auto" />
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Email."
+              placeholderTextColor="#003f5c"
+              value={this.state.email}
+              onChangeText={(GetEmail) => { this.setState({ email: GetEmail }) }}
+            />
+          </View>
+
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Password"
+              placeholderTextColor="#003f5c"
+              secureTextEntry={true}
+              value={this.state.password}
+              onChangeText={(Getpassword) => { this.setState({ password: Getpassword }) }}
+            />
+          </View>
+
+          {
+            this.state.passworderrer ? (
+              <Text style={styles.error}>{this.state.errorText}</Text>
+            ) : null
+          }
+
+          <TouchableOpacity onPress={() => {
+            this.reset();
+            this.props.navigation.navigate("Register")
+          }}>
+            <Text style={styles.forgot_button}>Register</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.loginBtn} onPress={() => {
+            this.checkUser();
+          }}>
+            <Text style={styles.loginText}>LOGIN</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.banner}>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

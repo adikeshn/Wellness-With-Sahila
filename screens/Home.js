@@ -1,5 +1,7 @@
 import { Linking, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ImageEditor, StatusBar, Dimensions, SafeAreaView } from 'react-native';
 import React, { Component } from "react"
+import { auth } from "../firebase-config";
+
 const width_proportion = Dimensions.get('window').width * 0.87;
 const smallProportions = Dimensions.get('window').width * 0.4;
 export default class Home extends Component {
@@ -54,7 +56,7 @@ export default class Home extends Component {
         <View style={styles.bottom}>
           <View>
             <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
           </View>
           <Image source={require("../assets/logo.png")} style={styles.pic} />
         </View>

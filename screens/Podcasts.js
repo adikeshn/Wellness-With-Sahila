@@ -5,6 +5,8 @@ import * as rssParser from 'react-native-rss-parser';
 import SeekBar from '../components/Seekbar';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Audio, ResizeMode } from 'expo-av';
+import { auth } from "../firebase-config";
+
 const width_proportion = Dimensions.get('window').width;
 const height_proportion = Dimensions.get('window').height;
 const fontSize = width_proportion * 0.035;
@@ -228,7 +230,7 @@ export default class Podcasts extends Component {
           <View style={styles.bottom}>
             <View>
               <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
             </View>
             <Image source={require("../assets/logo.png")} style={styles.pic} />
           </View>
@@ -249,7 +251,7 @@ export default class Podcasts extends Component {
           <View style={styles.bottom}>
             <View>
               <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
             </View>
             <Image source={require("../assets/logo.png")} style={styles.pic} />
           </View>

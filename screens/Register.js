@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,121 +10,129 @@ import {
   TouchableOpacity,
   Modal
 } from "react-native";
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 
-export default function Register({ navigation }) {
+export default class Register extends Component {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConf, setConf] = useState("");
-  const [passworderrer, seterror] = useState(false);
-  const [errorText, setErrortext] = useState("");
+  constructor(props) {
+    super(props)
 
-  const checkValid = () => {
-      if(password.localeCompare(passwordConf) != 0){
-          seterror(true);
-          setErrortext("Password Not Matching Conformation");
-          return false;
-      }
-      else if(!password || !passwordConf || !email){
-        seterror(true)
-        setErrortext("Feilds Missing");
-        return false;
-      }
-      else if (password.length < 6){
-        seterror(true)
-        setErrortext("password must be at least 6 characters")
-        return false;
-      }
-
-      return true;
+    this.state = {
+      email: "",
+      password: "",
+      passwordConf: "",
+      passworderrer: false,
+      errorText: ""
+    }
   }
-  const handleRegister = () => {
-    if (checkValid()){
-      createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        seterror(true);
-        setErrortext("successfully created user");
-        const user = userCredential.user;
+
+  checkValid = () => {
+    if (this.state.password.localeCompare(this.state.passwordConf) != 0) {
+      this.setState({
+        passworderrer: true,
+        errorText: "password not matching conformation"
       })
-      .catch((error) => {
-        seterror(true);
-        setErrortext(error.message + " " + error.code);
-      });
+      return false;
+    }
+    else if (!this.state.password || !this.state.passwordConf || !this.state.email) {
+      this.setState({
+        passworderrer: true,
+        errorText: "fields missing"
+      })
+      return false;
+    }
+    else if (this.state.password.length < 6) {
+      this.setState({
+        passworderrer: true,
+        errorText: "password must be at least 6 characters"
+      })
+      return false;
+    }
+
+    return true;
+  }
+  handleRegister = async () => {
+    if (this.checkValid()) {
+      await createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
+        .then((userCredential) => {
+          this.setState({
+            passworderrer: true
+          })
+          auth.signOut();
+          this.props.navigation.navigate("Login");
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          this.setState({
+            passworderrer: true
+          })
+          error.code == "auth/email-already-in-use" ? this.setState({ errorText: "email already in use" }) :
+            error.code == "auth/invalid-email" ? this.setState({ errorText: "invalid email" }) : this.setState({ errorText: error.message });
+        });
     }
     return true;
   }
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.banner}>
-      </View>
-      <View style={styles.login}>
-        <Image style={styles.image} source={require("../assets/logo.png")} />
-
-        <StatusBar style="auto" />
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Email."
-            placeholderTextColor="#003f5c"
-            onChangeText={(GetEmail) => setEmail(GetEmail)}
-          />
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.banner}>
         </View>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("Login");
-            }}>
-                <Text style={styles.forgot_button}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.loginBtn} onPress={() => {
-                handleRegister()
-            }}>
-                <Text style={styles.loginText}>REGISTER</Text>
-            </TouchableOpacity>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Password"
-            placeholderTextColor="#003f5c"
-            secureTextEntry={true}
-            onChangeText={(Getpassword) => setPassword(Getpassword)}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Confirm Password"
-            placeholderTextColor="#003f5c"
-            secureTextEntry={true}
-            onChangeText={(Conformation) => setConf(Conformation)}
-          />
-        </View>
+        <View style={styles.login}>
+          <Image style={styles.image} source={require("../assets/logo.png")} />
 
-        {
-          passworderrer ? (
-            <Text style={styles.error}>{errorText}</Text>
-          ) : null
-        }
+          <StatusBar style="auto" />
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Email."
+              placeholderTextColor="#003f5c"
+              onChangeText={(GetEmail) => this.setState({ email: GetEmail })}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Password"
+              placeholderTextColor="#003f5c"
+              secureTextEntry={true}
+              onChangeText={(Getpassword) => this.setState({ password: Getpassword })}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Confirm Password"
+              placeholderTextColor="#003f5c"
+              secureTextEntry={true}
+              onChangeText={(Conformation) => this.setState({ passwordConf: Conformation })}
+            />
+          </View>
 
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("Login");
-        }}>
-          <Text style={styles.forgot_button}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn} onPress={() => {
-          if (checkValid()) {
-            handleRegister();
-            navigation.navigate("Login");
+          {
+            this.state.passworderrer ? (
+              <Text style={styles.error}>{this.state.errorText}</Text>
+            ) : null
           }
-        }}>
-          <Text style={styles.loginText}>REGISTER</Text>
-        </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {
+            this.props.navigation.navigate("Login");
+          }}>
+            <Text style={styles.forgot_button}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.loginBtn} onPress={() => {
+            if (this.checkValid()) {
+              this.handleRegister();
+            }
+          }}>
+            <Text style={styles.loginText}>REGISTER</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.banner}>
+        </View>
       </View>
-      <View style={styles.banner}>
-      </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -175,10 +183,10 @@ const styles = StyleSheet.create({
   },
 
   error: {
-      color: "red",
-      fontWeight: 'bold',
-      marginBottom: 15,
-      fontSize: 15
+    color: "red",
+    fontWeight: 'bold',
+    marginBottom: 15,
+    fontSize: 15
 
   }
 });
