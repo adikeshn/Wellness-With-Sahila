@@ -307,8 +307,6 @@ const styles = StyleSheet.create({
     flex: 0.6,
     backgroundColor: 'white',
     alignItems: 'center',
-
-
   },
   world: {
     fontSize: 40
