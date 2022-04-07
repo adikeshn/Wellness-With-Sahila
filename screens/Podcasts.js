@@ -11,6 +11,7 @@ const width_proportion = Dimensions.get('window').width;
 const height_proportion = Dimensions.get('window').height;
 const fontSize = width_proportion * 0.035;
 const playFlex = Platform.OS === 'ios' ? 0.2 : 0.25
+
 export default class Podcasts extends Component {
   constructor(props) {
     super(props);
