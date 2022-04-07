@@ -1,4 +1,4 @@
-import { Linking, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ImageEditor, StatusBar, Dimensions, SafeAreaView } from 'react-native';
+import { Linking, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, StatusBar, Dimensions, SafeAreaView } from 'react-native';
 import React, { Component } from "react"
 import { auth } from "../firebase-config";
 

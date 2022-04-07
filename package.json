@@ -1,6 +1,6 @@
 {
   "name": "sahila",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -36,9 +36,6 @@
     "react-native-slider": "^0.11.0",
     "react-native-track-player": "^1.2.7",
     "react-native-vector-icons": "^9.0.0",
-    "react-native-web": "0.17.1",
-    "react-native-webview": "^11.16.0",
-    "react-native-youtube-iframe": "^2.2.2",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "rss-parser": "^3.12.0"

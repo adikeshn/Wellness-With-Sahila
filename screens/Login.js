@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { onAuthStateChanged, signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 
 export default class Login extends Component {
@@ -25,6 +25,9 @@ export default class Login extends Component {
 
   checkUser = async () => {
     await signInWithEmailAndPassword(auth, this.state.email, this.state.password)
+      .then((userCreds) => {
+        this.reset();
+      })
       .catch((error) => {
         this.setState({ password: "", passworderrer: true })
         error.code == "auth/network-request-failed" ? this.setState({ errorText: "No Connection" }) :
@@ -42,6 +45,7 @@ export default class Login extends Component {
       email: ""
     })
   }
+
 
   moniterAuthState = async () => {
     await onAuthStateChanged(auth, user => {

@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, StatusBar, Dimensions, Linking, SafeAreaView } from 'react-native';
 import React from "react"
-import { Link } from '@react-navigation/native';
 import { auth } from "../firebase-config";
 
 const width_proportion = Dimensions.get('window').width
