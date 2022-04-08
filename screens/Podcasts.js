@@ -1,10 +1,10 @@
-import { StyleSheet, Dimensions, Text, View, TouchableOpacity, Image, StatusBar, FlatList, ActivityIndicator, ScrollView, SafeAreaView, Platform } from 'react-native';
+import { StyleSheet, Dimensions, Text, View, TouchableOpacity, Image, StatusBar, FlatList, ActivityIndicator, SafeAreaView, Platform } from 'react-native';
 import React, { Component } from "react"
 import Pod from '../components/Pod';
 import * as rssParser from 'react-native-rss-parser';
 import SeekBar from '../components/Seekbar';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Audio, ResizeMode } from 'expo-av';
+import { Audio } from 'expo-av';
 import { auth } from "../firebase-config";
 
 const width_proportion = Dimensions.get('window').width;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ImageEditor } from 'react-native';
 import Home from './screens/Home';
 import Videos from './screens/Videos';
 import Podcasts from './screens/Podcasts';
