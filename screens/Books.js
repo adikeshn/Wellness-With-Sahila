@@ -27,12 +27,12 @@ export default function Books({ navigation }) {
             <View style={styles.book1View}>
               <Image source={require('../assets/Amazon_Cover_jpg.jpg')} style={styles.coverImage} />
               <View style={styles.descView}>
-                <View style={styles.descTextView}>
+                <ScrollView style={styles.descTextView}>
                   <Text>This is one of the first books written on yoga chakras by a
-                  doctor trained in USA. The goal is to
-                  explain the mind body relationships in the causation
+                    doctor trained in USA. The goal is to
+                    explain the mind body relationships in the causation
                     of illnesses starting from Covid to Cancer . </Text>
-                </View>
+                </ScrollView>
                 <TouchableOpacity onPress={() => {
                   Linking.openURL("https://www.amazon.com/CHAKRA-HANDBOOK-doctors-contemporary-healing-ebook/dp/B09PLHC6WD/ref=sr_1_4?crid=25QWYFX1DLBNK&keywords=chakra+handbook&qid=1641691250&sprefix=chakra+handbook%2Caps%2C73&sr=8-4")
                 }}>

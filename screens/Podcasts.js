@@ -10,7 +10,7 @@ import { auth } from "../firebase-config";
 const width_proportion = Dimensions.get('window').width;
 const height_proportion = Dimensions.get('window').height;
 const fontSize = width_proportion * 0.035;
-const playFlex = Platform.OS === 'ios' ? 0.2 : 0.25
+const playFlex = 0.25
 
 export default class Podcasts extends Component {
   constructor(props) {
@@ -172,10 +172,9 @@ export default class Podcasts extends Component {
 
           <View style={styles.play}>
             <Image source={{ uri: this.state.playing.itunes.image }} style={{
-              width: height_proportion * playFlex,
-              height: height_proportion * playFlex,
+              flex: 0.5
             }}></Image>
-            <View style={{ justifyContent: 'center' }}>
+            <View style={{ justifyContent: 'center', flex: 0.75 }}>
               <Text style={styles.TextView}>{this.state.playing.title}</Text>
               <Text style={styles.sub}>Wellness With Sahila</Text>
               <Text style={{
@@ -185,7 +184,7 @@ export default class Podcasts extends Component {
                 marginLeft: 16
               }}>{this.state.playing.published}</Text>
               {!this.state.newloaded ? (
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginLeft: 8, marginTop: -4 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
 
                   <SeekBar
                     durationMillis={this.state.durationMillis}
@@ -196,9 +195,9 @@ export default class Podcasts extends Component {
                   />
                   <TouchableOpacity onPress={this.handlePlayPause}>
                     {this.state.isPlaying ? (
-                      <Ionicons name='ios-pause' size={25} style={{ marginTop: 10, marginLeft: 10 }} color='tomato' />
+                      <Ionicons name='ios-pause' size={30} style={{ marginLeft: 5 }} color='tomato' />
                     ) : (
-                      <Ionicons name="play" size={25} style={{ marginTop: 10, marginLeft: 10 }} color='tomato' />
+                      <Ionicons name="play" size={30} style={{ marginLeft: 5 }} color='tomato' />
                     )}
                   </TouchableOpacity>
                 </View>
@@ -289,7 +288,7 @@ const styles = StyleSheet.create({
   TextView: {
     marginLeft: 15,
     marginTop: 15,
-    maxWidth: width_proportion * 0.51,
+    maxWidth: width_proportion * 0.7,
     fontSize: fontSize
   },
   label: {

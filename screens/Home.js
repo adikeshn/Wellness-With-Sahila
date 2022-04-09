@@ -32,10 +32,11 @@ export default class Home extends Component {
             <View style={{ marginTop: 20 }}>
               <Image source={require('../assets/VPB_6854.jpg')} style={styles.image2}>
               </Image>
-              <View style={styles.image3}><Text style={styles.mission}>
-                My mission is to help everyone live a disease free
-                life to their fullest potential through my wholesome approach
-                that teaches how to balance body and mind.</Text>
+
+              <View style={styles.image3}>
+                <Text style={styles.mission}>My mission is to help everyone live a disease free
+                  life to their fullest potential through my wholesome approach
+                  that teaches how to balance body and mind.</Text>
               </View>
             </View>
             <View style={styles.other}>
@@ -158,8 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'black',
     fontWeight: 'bold',
-    padding: 15,
-    width: 255,
-    paddingTop: 20,
+    maxWidth: 235,
   }
 });

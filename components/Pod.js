@@ -21,10 +21,10 @@ const Pod = (props) => {
                 marginLeft: 10,
                 alignSelf: 'center'
             }} />
-            <View style={styles.TextView}>
+            <View style={styles.TextView} >
                 <Text style={styles.sub2}>{props.title}</Text>
                 <Text style={styles.sub}>Wellness With Sahila: {getCurrentTime(props.duration)}</Text>
-                <Text style={styles.sub}>{props.date}</Text>
+                <Text style={styles.sub}>{props.date.substring(0, 17)}</Text>
             </View>
         </View>
     )
@@ -42,16 +42,17 @@ const styles = StyleSheet.create({
     TextView: {
         marginLeft: 15,
         marginTop: 15,
-        maxWidth: width_proportion
+        maxWidth: width_proportion,
     },
     sub: {
         marginTop: 5,
         fontSize: 12,
-        color: '#686868'
+        color: '#686868',
+        maxWidth: width_proportion * 0.6
     },
     sub2: {
         fontSize: 13,
-        maxWidth: width_proportion * 0.5
+        maxWidth: width_proportion * 0.6
 
     }
 });
