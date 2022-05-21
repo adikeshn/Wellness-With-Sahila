@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, ImageEditor, StatusBar, SafeAreaView } from 'react-native';
+import { Linking, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, StatusBar, SafeAreaView } from 'react-native';
 import Video from '../components/Video';
 import { auth } from "../firebase-config";
 
