@@ -10,7 +10,7 @@ import { auth } from "../firebase-config";
 const width_proportion = Dimensions.get('window').width;
 const height_proportion = Dimensions.get('window').height;
 const fontSize = width_proportion * 0.035;
-const playFlex = 0.2
+const playFlex = 0.25
 
 export default class Podcasts extends Component {
   constructor(props) {
@@ -164,17 +164,18 @@ export default class Podcasts extends Component {
     if (!this.state.isLoading) {
       return (
         <SafeAreaView style={this.containerStyle()}>
-          <View style={styles.banner}>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Videos') }}><Text style={styles.button}>Videos</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Podcasts') }}><Text style={styles.button}>Podcasts</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Books') }}><Text style={styles.button}>Books</Text></TouchableOpacity>
+          <View style={styles.bottom}>
+            <View>
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+            </View>
+            <Image source={require("../assets/logo.png")} style={styles.pic} />
           </View>
-
           <View style={styles.play}>
             <Image source={{ uri: this.state.playing.itunes.image }} style={{
-              flex: 0.5
+              flex: 0.39
             }}></Image>
-            <View style={{ justifyContent: 'center', flex: 0.75 }}>
+            <View style={{ justifyContent: 'center', flex: 0.61 }}>
               <Text style={styles.TextView}>{this.state.playing.title}</Text>
               <Text style={styles.sub}>Wellness With Sahila</Text>
               <Text style={{
@@ -227,12 +228,19 @@ export default class Podcasts extends Component {
               )}
             />
           </View>
-          <View style={styles.bottom}>
-            <View>
-              <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-              <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
-            </View>
-            <Image source={require("../assets/logo.png")} style={styles.pic} />
+          <View style={styles.banner}>
+            <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Videos') }}>
+              <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+              <Text style={styles.button}>Videos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
+              <Ionicons name='mic' size={35} style={{ marginBottom: -3}} color='white' />
+              <Text style={styles.button}>Podcasts</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Books') }}>
+              <Ionicons name='book-outline' size={35} style={{ marginBottom: -5}} color='white' />
+              <Text style={styles.button}>Books</Text>
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
       )
@@ -240,20 +248,29 @@ export default class Podcasts extends Component {
     else {
       return (
         <SafeAreaView style={this.containerStyle()}>
-          <View style={styles.banner}>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Videos') }}><Text style={styles.button}>Videos</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Podcasts') }}><Text style={styles.button}>Podcasts</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Books') }}><Text style={styles.button}>Books</Text></TouchableOpacity>
-          </View>
-          <View style={{ flex: 0.8, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
-            <ActivityIndicator size="large" color="tomato" />
-          </View>
           <View style={styles.bottom}>
             <View>
               <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
               <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
             </View>
             <Image source={require("../assets/logo.png")} style={styles.pic} />
+          </View>
+          <View style={{ flex: 0.8, padding: 5, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="tomato" />
+          </View>
+          <View style={styles.banner}>
+            <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Videos') }}>
+              <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+              <Text style={styles.button}>Videos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style = {styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
+              <Ionicons name='mic' size={35} style={{ marginBottom: -3}} color='white' />
+              <Text style={styles.button}>Podcasts</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Books') }}>
+              <Ionicons name='book-outline' size={35} style={{ marginBottom: -5}} color='white' />
+              <Text style={styles.button}>Books</Text>
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
       );
@@ -262,6 +279,10 @@ export default class Podcasts extends Component {
 }
 
 const styles = StyleSheet.create({
+  b:{
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   sub: {
     marginTop: 10,
     fontSize: fontSize * 0.85,
@@ -283,7 +304,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    fontSize: 25,
+    marginBottom: 5,
+    fontSize: 12.5,
+    fontFamily: 'monospace'
   },
   TextView: {
     marginLeft: 15,
@@ -304,7 +327,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 25,
-    flex: 0.6,
+    flex: 0.55,
     backgroundColor: 'white',
     alignItems: 'center',
   },

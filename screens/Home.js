@@ -1,5 +1,7 @@
 import { Linking, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, StatusBar, Dimensions, SafeAreaView } from 'react-native';
 import React, { Component } from "react"
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 import { auth } from "../firebase-config";
 
 const width_proportion = Dimensions.get('window').width * 0.87;
@@ -21,11 +23,13 @@ export default class Home extends Component {
   render() {
     return (
       <SafeAreaView style={this.containerStyle()}>
-        <View style={styles.banner}>
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Videos') }}><Text style={styles.button}>Videos</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Podcasts') }}><Text style={styles.button}>Podcasts</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Books') }}><Text style={styles.button}>Books</Text></TouchableOpacity>
+        <View style={styles.bottom}>
+        <View>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
         </View>
+        <Image source={require("../assets/logo.png")} style={styles.pic} />
+      </View>
         <View style={styles.content}>
           <ScrollView>
             <Image source={require('../assets/sdsd.jpg')} style={styles.image1} />
@@ -54,19 +58,30 @@ export default class Home extends Component {
             </View>
           </ScrollView>
         </View>
-        <View style={styles.bottom}>
-          <View>
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
-          </View>
-          <Image source={require("../assets/logo.png")} style={styles.pic} />
-        </View>
+      <View style={styles.banner}>
+        <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Videos') }}>
+          <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+          <Text style={styles.button}>Videos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
+          <Ionicons name='mic-outline' size={35} style={{ marginBottom: -3}} color='white' />
+          <Text style={styles.button}>Podcasts</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Books') }}>
+          <Ionicons name='book-outline' size={35} style={{ marginBottom: -5}} color='white' />
+          <Text style={styles.button}>Books</Text>
+        </TouchableOpacity>
+      </View>
       </SafeAreaView>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  b:{
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   image5: {
     width: 40,
     height: 40,
@@ -127,7 +142,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    fontSize: 25,
+    marginBottom: 5,
+    fontSize: 12.5,
+    fontFamily: 'monospace'
   },
   label: {
     fontSize: 20,

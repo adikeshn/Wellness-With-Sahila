@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, StatusBar, Dimensions, Linking, SafeAreaView } from 'react-native';
 import React from "react"
 import { auth } from "../firebase-config";
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const width_proportion = Dimensions.get('window').width
 export default function Books({ navigation }) {
@@ -11,15 +12,18 @@ export default function Books({ navigation }) {
       backgroundColor: '#fff',
       flexDirection: 'column',
       marginTop: StatusBar.currentHeight
+      
     }
   }
 
   return (
     <SafeAreaView style={containerStyle()}>
-      <View style={styles.banner}>
-        <TouchableOpacity onPress={() => { navigation.navigate('Videos') }}><Text style={styles.button}>Videos</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('Podcasts') }}><Text style={styles.button}>Podcasts</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('Books') }}><Text style={styles.button}>Books</Text></TouchableOpacity>
+      <View style={styles.bottom}>
+        <View>
+          <TouchableOpacity onPress={() => { navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => { auth.signOut(); navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+        </View>
+        <Image source={require("../assets/logo.png")} style={styles.pic} />
       </View>
       <View style={styles.content}>
         <ScrollView>
@@ -45,18 +49,29 @@ export default function Books({ navigation }) {
           </View>
         </ScrollView>
       </View>
-      <View style={styles.bottom}>
-        <View>
-          <TouchableOpacity onPress={() => { navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => { auth.signOut(); navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
-        </View>
-        <Image source={require("../assets/logo.png")} style={styles.pic} />
+      <View style={styles.banner}>
+        <TouchableOpacity style={styles.b} onPress={() => { navigation.navigate('Videos') }}>
+          <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+          <Text style={styles.button}>Videos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.b} onPress={() => { navigation.navigate('Podcasts') }}>
+          <Ionicons name='mic-outline' size={35} style={{ marginBottom: -3}} color='white' />
+          <Text style={styles.button}>Podcasts</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.b} onPress={() => { navigation.navigate('Books') }}>
+          <Ionicons name='book' size={35} style={{ marginBottom: -5}} color='white' />
+          <Text style={styles.button}>Books</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  b:{
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   book1View: {
     flexDirection: 'row',
     flex: 1,
@@ -102,7 +117,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    fontSize: 25,
+    marginBottom: 5,
+    fontSize: 12.5,
+    fontFamily: 'monospace'
   },
   label: {
     fontSize: 20,
