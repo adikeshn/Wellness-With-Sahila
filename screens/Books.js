@@ -32,7 +32,7 @@ export default function Books({ navigation }) {
               <Image source={require('../assets/Amazon_Cover_jpg.jpg')} style={styles.coverImage} />
               <View style={styles.descView}>
                 <ScrollView style={styles.descTextView}>
-                  <Text>This is one of the first books written on yoga chakras by a
+                  <Text style={{fontSize: 16, marginLeft: 10}}>This is one of the first books written on yoga chakras by a
                     doctor trained in USA. The goal is to
                     explain the mind body relationships in the causation
                     of illnesses starting from Covid to Cancer . </Text>
@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
   descTextView: {
     backgroundColor: 'white',
     borderRadius: 4,
-    padding: 10
   },
   coverImage: {
     flex: 0.45,

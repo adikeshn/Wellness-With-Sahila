@@ -49,7 +49,7 @@ export default class Login extends Component {
 
   moniterAuthState = async () => {
     await onAuthStateChanged(auth, user => {
-      user != null ? this.props.navigation.navigate("HomeScreen") : null;
+      user != null ? this.props.navigation.navigate("HomeScreen", {username: user.email}) : null;
     })
   }
 

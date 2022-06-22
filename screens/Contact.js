@@ -1,0 +1,183 @@
+import { StyleSheet, Button, Text, View,TextInput, TouchableOpacity, Image, StatusBar, Dimensions, SafeAreaView } from 'react-native';
+import React, { Component } from "react"
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useRoute } from '@react-navigation/native';
+import { createTransport } from "nodemailer";
+import {auth} from "googleapis";
+
+const width_proportion = Dimensions.get('window').width * 0.87;
+const smallProportions = Dimensions.get('window').width * 0.4;
+const CLIENT_ID = '141339435799-2kkui2j09erqf02h5v45d9t1u4pui93n.apps.googleusercontent.com', 
+CLIENT_SECRET = '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', 
+REDIRECT_URI = 'https://developers.google.com/oauthplayground', 
+REFRESH_TOKEN = '1//04X15D33dU-o_CgYIARAAGAQSNwF-L9Ir7C7QLX9m4VwLlPDF3AKlwIkLN15phhlQn4DI1ozdnIPrvcMs-N7GDWBNKy85-nTrVMI'
+
+const OAuth2Client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+OAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
+const route = useRoute();
+
+
+export default class Contact extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      message: ""
+    }
+  }
+
+  containerStyle = function (options) {
+    return {
+      flex: 1,
+      backgroundColor: '#fff',
+      flexDirection: 'column',
+      marginTop: StatusBar.currentHeight
+    }
+  }
+
+  async sendMail() {
+    try{
+
+      const accessToken = await OAuth2Client.getAccessToken()
+      const transport = createTransport({
+        service: 'gmail',
+        auth: {
+          type: 'OAuth2',
+          user: route.params.username,
+          clientId: CLIENT_ID,
+          clientSecret: CLIENT_SECRET,
+          refreshToken: REFRESH_TOKEN,
+          accessToken: accessToken
+        }
+      })
+
+      const mailOptions = {
+        from: route.params.username,
+        to: 'adiknathan09@gmail.com',
+        subject: "Message from " + this.state.name,
+        text: this.state.message
+      }
+
+      const result = await transport.sendMail(mailOptions)
+      return result
+
+    } catch(error) {
+      return error
+    }
+  }
+  render() {
+    return (
+      <SafeAreaView style={this.containerStyle()}>
+        <View style={styles.bottom}>
+        <View>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}><Text style={styles.label}>Wellness With Sahila</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => { auth.signOut(); this.props.navigation.navigate('Login') }}><Text style={{ marginLeft: 10 }}>Logout</Text></TouchableOpacity>
+        </View>
+        <Image source={require("../assets/logo.png")} style={styles.pic} />
+      </View>
+        <View style={styles.content}>
+        <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Name"
+              placeholderTextColor="#003f5c"
+              value={this.state.name}
+              onChangeText={(Name) => { this.setState({ name: Name }) }}
+            />
+          </View>
+          <View style={styles.inputView2}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Message"
+              placeholderTextColor="#003f5c"
+              value={this.state.message}
+              onChangeText={(Message) => { this.setState({ message: Message }) }}
+              multiline={true}
+            />
+          </View>
+          <Button 
+          title="SUBMIT"
+          color="tomato"
+          onPress={() => {this.sendMail()
+          .then(result => console.log(result))
+          .catch(error=>console.log(error))}}/> 
+        </View>
+      <View style={styles.banner}>
+        <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Videos') }}>
+          <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+          <Text style={styles.button}>Videos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
+          <Ionicons name='mic-outline' size={35} style={{ marginBottom: -3}} color='white' />
+          <Text style={styles.button}>Podcasts</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Books') }}>
+          <Ionicons name='book-outline' size={35} style={{ marginBottom: -5}} color='white' />
+          <Text style={styles.button}>Books</Text>
+        </TouchableOpacity>
+      </View>
+      </SafeAreaView>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  button1: {
+    color: '#E94747'
+  },
+  inputView2: {
+    backgroundColor: "white",
+    width: "100%",
+    borderWidth: 3,
+    borderColor: "tomato",
+    height: 190,
+    marginBottom: 20,                                              
+  },
+  TextInput: {
+    padding: 10,
+    fontSize: 18
+  },
+  inputView: {
+    backgroundColor: "white",
+    width: "100%",
+    borderWidth: 3,
+    borderColor: "tomato",
+    height: 60,
+    marginBottom: 10,
+  },
+  b:{
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  banner: {
+    flex: 0.1,
+    backgroundColor: '#E94747',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  button: {
+    marginBottom: 5,
+    fontSize: 12.5,
+    fontFamily: 'monospace'
+  },
+  label: {
+    fontSize: 20,
+    marginLeft: 10
+  },
+  bottom: {
+    flex: 0.1,
+    backgroundColor: '#E94747',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  content: {
+    padding: 25,
+    flex: 0.8,
+    backgroundColor: 'white',
+
+
+  },
+});

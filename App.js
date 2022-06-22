@@ -10,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Contact from './screens/Contact';
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -21,9 +22,11 @@ const HomeComponent = () => {
         headerShown: false
       }}>
           <Drawer.Screen name="Home" component={Home} options={{drawerItemStyle: { height: 0 }}}/>
+          <Drawer.Screen name="Contact" component={Contact} />
           <Drawer.Screen name="Videos" component={Videos} options={{drawerItemStyle: { height: 0 }}} />
           <Drawer.Screen name="Podcasts" component={Podcasts} options={{drawerItemStyle: { height: 0 }}} />
           <Drawer.Screen name="Books" component={Books} options={{drawerItemStyle: { height: 0 }}} />
+          <Drawer.Screen name="Custom" component={CustomDrawer} options={{drawerItemStyle: {height: 0}}} />
       </Drawer.Navigator>
   );
 };
