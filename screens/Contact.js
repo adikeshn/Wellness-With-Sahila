@@ -1,20 +1,11 @@
 import { StyleSheet, Button, Text, View,TextInput, TouchableOpacity, Image, StatusBar, Dimensions, SafeAreaView } from 'react-native';
 import React, { Component } from "react"
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { useRoute } from '@react-navigation/native';
-import { createTransport } from "nodemailer";
-import {auth} from "googleapis";
 
 const width_proportion = Dimensions.get('window').width * 0.87;
 const smallProportions = Dimensions.get('window').width * 0.4;
-const CLIENT_ID = '141339435799-2kkui2j09erqf02h5v45d9t1u4pui93n.apps.googleusercontent.com', 
-CLIENT_SECRET = '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', 
-REDIRECT_URI = 'https://developers.google.com/oauthplayground', 
-REFRESH_TOKEN = '1//04X15D33dU-o_CgYIARAAGAQSNwF-L9Ir7C7QLX9m4VwLlPDF3AKlwIkLN15phhlQn4DI1ozdnIPrvcMs-N7GDWBNKy85-nTrVMI'
 
-const OAuth2Client = new auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
-OAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
-const route = useRoute();
+
 
 
 export default class Contact extends Component {
@@ -23,11 +14,12 @@ export default class Contact extends Component {
 
     this.state = {
       name: "",
-      message: ""
+      message: "",
     }
   }
 
   containerStyle = function (options) {
+    
     return {
       flex: 1,
       backgroundColor: '#fff',
@@ -36,36 +28,21 @@ export default class Contact extends Component {
     }
   }
 
-  async sendMail() {
-    try{
-
-      const accessToken = await OAuth2Client.getAccessToken()
-      const transport = createTransport({
-        service: 'gmail',
-        auth: {
-          type: 'OAuth2',
-          user: route.params.username,
-          clientId: CLIENT_ID,
-          clientSecret: CLIENT_SECRET,
-          refreshToken: REFRESH_TOKEN,
-          accessToken: accessToken
-        }
-      })
-
-      const mailOptions = {
-        from: route.params.username,
-        to: 'adiknathan09@gmail.com',
-        subject: "Message from " + this.state.name,
-        text: this.state.message
-      }
-
-      const result = await transport.sendMail(mailOptions)
-      return result
-
-    } catch(error) {
-      return error
-    }
+   sendMail = async function() {
+    const {name, message} = this.state;
+    const a = 1, b = 2;
+    const data = {a, b}
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    console.log(name, message)
+    await fetch("http://localhost:4000/nodemailer").then((result) => {console.log("hiya")}).catch(error => {console.log(error)})
   }
+  
   render() {
     return (
       <SafeAreaView style={this.containerStyle()}>
@@ -99,9 +76,7 @@ export default class Contact extends Component {
           <Button 
           title="SUBMIT"
           color="tomato"
-          onPress={() => {this.sendMail()
-          .then(result => console.log(result))
-          .catch(error=>console.log(error))}}/> 
+          onPress={() => {this.sendMail()}}/> 
         </View>
       <View style={styles.banner}>
         <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Videos') }}>
