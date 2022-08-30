@@ -10,7 +10,7 @@ import { auth } from "../firebase-config";
 const width_proportion = Dimensions.get('window').width;
 const height_proportion = Dimensions.get('window').height;
 const fontSize = width_proportion * 0.035;
-const playFlex = 0.25
+const playFlex = 0.24
 
 export default class Podcasts extends Component {
   constructor(props) {
@@ -173,9 +173,10 @@ export default class Podcasts extends Component {
           </View>
           <View style={styles.play}>
             <Image source={{ uri: this.state.playing.itunes.image }} style={{
-              flex: 0.39
+              width: (playFlex - 0.04) * height_proportion,
+              height: (playFlex - 0.04) * height_proportion,
             }}></Image>
-            <View style={{ justifyContent: 'center', flex: 0.61 }}>
+            <View style={{ justifyContent: 'center', width: width_proportion - (playFlex * height_proportion) }}>
               <Text style={styles.TextView}>{this.state.playing.title}</Text>
               <Text style={styles.sub}>Wellness With Sahila</Text>
               <Text style={{
@@ -230,15 +231,15 @@ export default class Podcasts extends Component {
           </View>
           <View style={styles.banner}>
             <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Videos') }}>
-              <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+              <Ionicons name='videocam-outline' size={35} style={{ marginBottom: -5 }} color='white' />
               <Text style={styles.button}>Videos</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
-              <Ionicons name='mic' size={35} style={{ marginBottom: -3}} color='white' />
+            <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
+              <Ionicons name='mic' size={35} style={{ marginBottom: -3 }} color='white' />
               <Text style={styles.button}>Podcasts</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Books') }}>
-              <Ionicons name='book-outline' size={35} style={{ marginBottom: -5}} color='white' />
+              <Ionicons name='book-outline' size={35} style={{ marginBottom: -5 }} color='white' />
               <Text style={styles.button}>Books</Text>
             </TouchableOpacity>
           </View>
@@ -260,15 +261,15 @@ export default class Podcasts extends Component {
           </View>
           <View style={styles.banner}>
             <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Videos') }}>
-              <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+              <Ionicons name='videocam-outline' size={35} style={{ marginBottom: -5 }} color='white' />
               <Text style={styles.button}>Videos</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
-              <Ionicons name='mic' size={35} style={{ marginBottom: -3}} color='white' />
+            <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Podcasts') }}>
+              <Ionicons name='mic' size={35} style={{ marginBottom: -3 }} color='white' />
               <Text style={styles.button}>Podcasts</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.b} onPress={() => { this.props.navigation.navigate('Books') }}>
-              <Ionicons name='book-outline' size={35} style={{ marginBottom: -5}} color='white' />
+              <Ionicons name='book-outline' size={35} style={{ marginBottom: -5 }} color='white' />
               <Text style={styles.button}>Books</Text>
             </TouchableOpacity>
           </View>
@@ -279,7 +280,7 @@ export default class Podcasts extends Component {
 }
 
 const styles = StyleSheet.create({
-  b:{
+  b: {
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -327,7 +328,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 25,
-    flex: 0.55,
+    flex: 0.8 - playFlex,
     backgroundColor: 'white',
     alignItems: 'center',
   },

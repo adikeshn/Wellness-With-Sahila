@@ -12,7 +12,7 @@ export default function Books({ navigation }) {
       backgroundColor: '#fff',
       flexDirection: 'column',
       marginTop: StatusBar.currentHeight
-      
+
     }
   }
 
@@ -32,7 +32,7 @@ export default function Books({ navigation }) {
               <Image source={require('../assets/Amazon_Cover_jpg.jpg')} style={styles.coverImage} />
               <View style={styles.descView}>
                 <ScrollView style={styles.descTextView}>
-                  <Text style={{fontSize: 16, marginLeft: 10}}>This is one of the first books written on yoga chakras by a
+                  <Text style={{ fontSize: 16, marginLeft: 10, padding: 5 }}>This is one of the first books written on yoga chakras by a
                     doctor trained in USA. The goal is to
                     explain the mind body relationships in the causation
                     of illnesses starting from Covid to Cancer . </Text>
@@ -51,15 +51,15 @@ export default function Books({ navigation }) {
       </View>
       <View style={styles.banner}>
         <TouchableOpacity style={styles.b} onPress={() => { navigation.navigate('Videos') }}>
-          <Ionicons name='videocam-outline' size={35} style={{marginBottom: -5}} color='white' />
+          <Ionicons name='videocam-outline' size={35} style={{ marginBottom: -5 }} color='white' />
           <Text style={styles.button}>Videos</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.b} onPress={() => { navigation.navigate('Podcasts') }}>
-          <Ionicons name='mic-outline' size={35} style={{ marginBottom: -3}} color='white' />
+        <TouchableOpacity style={styles.b} onPress={() => { navigation.navigate('Podcasts') }}>
+          <Ionicons name='mic-outline' size={35} style={{ marginBottom: -3 }} color='white' />
           <Text style={styles.button}>Podcasts</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.b} onPress={() => { navigation.navigate('Books') }}>
-          <Ionicons name='book' size={35} style={{ marginBottom: -5}} color='white' />
+          <Ionicons name='book' size={35} style={{ marginBottom: -5 }} color='white' />
           <Text style={styles.button}>Books</Text>
         </TouchableOpacity>
       </View>
@@ -68,7 +68,7 @@ export default function Books({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  b:{
+  b: {
     justifyContent: 'center',
     alignItems: 'center'
   },
