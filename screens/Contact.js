@@ -131,8 +131,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 3,
     borderColor: "tomato",
-    height: 190,
-    marginBottom: 20,
+    height: 180,
   },
   TextInput: {
     padding: 10,
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 3,
     borderColor: "tomato",
-    height: 60,
+    height: 50,
     marginBottom: 10,
   },
   b: {
