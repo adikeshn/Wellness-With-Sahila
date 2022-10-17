@@ -9,7 +9,8 @@ const Pod = (props) => {
         var minutes = Math.floor(millis / 60);
         var seconds = ((millis % 60)).toFixed(0);
         let formatted = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-        return formatted;
+        console.log(formatted);
+        return millis;
     }
 
     return (
@@ -23,7 +24,7 @@ const Pod = (props) => {
             }} />
             <View style={styles.TextView} >
                 <Text style={styles.sub2}>{props.title}</Text>
-                <Text style={styles.sub}>Wellness With Sahila: {getCurrentTime(props.duration)}</Text>
+                <Text style={styles.sub}>Wellness With Sahila: {props.duration}</Text>
                 <Text style={styles.sub}>{props.date.substring(0, 17)}</Text>
             </View>
         </View>
@@ -33,8 +34,8 @@ const Pod = (props) => {
 const styles = StyleSheet.create({
     PodView: {
         backgroundColor: '#E3E3E3',
-        height: 120,
         width: width_proportion,
+        minHeight: 120,
         flexDirection: 'row',
         borderRadius: 10,
         marginBottom: 10
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginTop: 15,
         maxWidth: width_proportion,
+        paddingBottom: 5
     },
     sub: {
         marginTop: 5,

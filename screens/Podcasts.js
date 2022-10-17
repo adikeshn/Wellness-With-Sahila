@@ -173,10 +173,9 @@ export default class Podcasts extends Component {
           </View>
           <View style={styles.play}>
             <Image source={{ uri: this.state.playing.itunes.image }} style={{
-              width: (playFlex - 0.04) * height_proportion,
-              height: (playFlex - 0.04) * height_proportion,
+              flex: 0.4
             }}></Image>
-            <View style={{ justifyContent: 'center', width: width_proportion - (playFlex * height_proportion) }}>
+            <View style={{ justifyContent: 'center', flex: 0.6 }}>
               <Text style={styles.TextView}>{this.state.playing.title}</Text>
               <Text style={styles.sub}>Wellness With Sahila</Text>
               <Text style={{
@@ -293,7 +292,7 @@ const styles = StyleSheet.create({
   },
   play: {
     backgroundColor: "#E3E3E3",
-    flex: playFlex,
+    flex: 0.27,
     flexDirection: 'row',
     width: width_proportion
   },
@@ -328,7 +327,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 25,
-    flex: 0.8 - playFlex,
+    flex: 0.8 - 0.27,
     backgroundColor: 'white',
     alignItems: 'center',
   },
